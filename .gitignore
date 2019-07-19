@@ -13,3 +13,4 @@ bower_components
 bin
 obj
 packages
+.idea/
