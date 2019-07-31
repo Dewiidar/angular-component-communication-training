@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 
 import {IProduct} from './product';
 import {ProductService} from './product.service';
@@ -30,6 +30,8 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     }
 
     @ViewChild('filterElement') filterElementRef: ElementRef;
+    @ViewChildren('filterElement, nameElement') filterElementRefs: QueryList<ElementRef>;
+
     constructor(private productService: ProductService) {
     }
 
@@ -44,10 +46,8 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        console.log(this.filterElementRef);
-        if (this.filterElementRef.nativeElement) {
-            this.filterElementRef.nativeElement.focus();
-        }
+        // console.log(this.filterElementRef);
+        console.log(this.filterElementRefs);
     }
 
     toggleImage(): void {
