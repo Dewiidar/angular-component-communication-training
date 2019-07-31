@@ -3,6 +3,7 @@ import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, View
 import {IProduct} from './product';
 import {ProductService} from './product.service';
 import {NgModel} from "@angular/forms";
+import {Subscription} from "rxjs";
 
 @Component({
     templateUrl: './product-list.component.html',
@@ -24,6 +25,25 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     @ViewChild('filterElement') filterElementRef: ElementRef;
     @ViewChild(NgModel) inputElement: NgModel;
 
+    private _sub: Subscription;
+
+    private _filterInput: NgModel;
+
+    get filterInput(): NgModel {
+        return this._filterInput;
+    }
+
+    @ViewChild(NgModel)
+    set filterInput(value: NgModel) {
+        this._filterInput = value;
+
+        if (this.inputElement && !this._sub) {
+            this._sub = this.inputElement.valueChanges.subscribe(
+                () => this.performFilter(this.listFilter)
+            );
+        }
+    }
+
     constructor(private productService: ProductService) {
     }
 
@@ -38,9 +58,9 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.inputElement.valueChanges.subscribe(
-            () => this.performFilter(this.listFilter)
-        );
+        // this.inputElement.valueChanges.subscribe(
+        //     () => this.performFilter(this.listFilter)
+        // );
     }
 
     toggleImage(): void {
