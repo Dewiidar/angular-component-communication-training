@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { IProduct } from './product';
-import { ProductService } from './product.service';
+import {IProduct} from './product';
+import {ProductService} from './product.service';
 
 @Component({
     templateUrl: './product-list.component.html',
@@ -9,7 +9,6 @@ import { ProductService } from './product.service';
 })
 export class ProductListComponent implements OnInit {
     pageTitle: string = 'Product List';
-    listFilter: string;
     showImage: boolean;
 
     imageWidth: number = 50;
@@ -19,7 +18,19 @@ export class ProductListComponent implements OnInit {
     filteredProducts: IProduct[];
     products: IProduct[];
 
-    constructor(private productService: ProductService) { }
+    private _listFilter: string;
+
+    get listFilter(): string {
+        return this._listFilter;
+    }
+
+    set listFilter(value: string) {
+        this._listFilter = value;
+        this.performFilter(this.listFilter)
+    }
+
+    constructor(private productService: ProductService) {
+    }
 
     ngOnInit(): void {
         this.productService.getProducts().subscribe(
@@ -42,10 +53,5 @@ export class ProductListComponent implements OnInit {
         } else {
             this.filteredProducts = this.products;
         }
-    }
-
-    onFilterChange(filter: string): void {
-        this.listFilter = filter;
-        this.performFilter(this.listFilter);
     }
 }
