@@ -8,7 +8,7 @@ import {NgModel} from "@angular/forms";
 })
 export class CriteriaComponent implements OnInit, AfterViewInit {
 
-    listFilter: string;
+    listFilter: string = 'cart';
 
     @Input() displayDetail: boolean;
 

@@ -4,12 +4,13 @@ import {IProduct} from './product';
 import {ProductService} from './product.service';
 import {NgModel} from "@angular/forms";
 import {Subscription} from "rxjs";
+import {CriteriaComponent} from "../shared/criteria/criteria.component";
 
 @Component({
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, AfterViewInit {
     pageTitle: string = 'Product List';
     showImage: boolean;
 
@@ -22,6 +23,9 @@ export class ProductListComponent implements OnInit {
 
     includeDetail: boolean = true;
 
+    parentListFilter: string;
+    @ViewChild('filterCriteria') filterComponent: CriteriaComponent;
+
     constructor(private productService: ProductService) {
     }
 
@@ -29,13 +33,15 @@ export class ProductListComponent implements OnInit {
         this.productService.getProducts().subscribe(
             (products: IProduct[]) => {
                 this.products = products;
-                this.performFilter();
+                this.performFilter(this.parentListFilter);
             },
             (error: any) => this.errorMessage = <any>error
         );
     }
 
-
+    ngAfterViewInit(): void {
+        this.parentListFilter = this.filterComponent.listFilter;
+    }
 
     toggleImage(): void {
         this.showImage = !this.showImage;
