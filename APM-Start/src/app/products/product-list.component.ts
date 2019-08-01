@@ -20,6 +20,7 @@ export class ProductListComponent implements OnInit {
     filteredProducts: IProduct[];
     products: IProduct[];
 
+    includeDetail: boolean = true;
 
     constructor(private productService: ProductService) {
     }

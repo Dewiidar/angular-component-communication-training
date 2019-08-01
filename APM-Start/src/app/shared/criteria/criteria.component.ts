@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {NgModel} from "@angular/forms";
 
 @Component({
@@ -9,6 +9,8 @@ import {NgModel} from "@angular/forms";
 export class CriteriaComponent implements OnInit, AfterViewInit {
 
     listFilter: string;
+
+    @Input() displayDetail: boolean;
 
     @ViewChild('filterElement') filterElementRef: ElementRef;
     @ViewChild(NgModel) inputElement: NgModel;
