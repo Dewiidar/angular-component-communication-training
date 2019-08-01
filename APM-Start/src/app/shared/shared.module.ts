@@ -1,21 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
-import { StarComponent } from './star.component';
+import {StarComponent} from './star.component';
+import {CriteriaComponent} from './criteria/criteria.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
-  declarations: [
-    StarComponent
-  ],
-  exports: [
-    StarComponent,
-    CommonModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        FormsModule
+    ],
+    declarations: [
+        StarComponent,
+        CriteriaComponent
+    ],
+    exports: [
+        StarComponent,
+        CriteriaComponent,
+        CommonModule,
+        FormsModule
+    ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

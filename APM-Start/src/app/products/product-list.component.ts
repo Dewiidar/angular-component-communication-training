@@ -9,7 +9,7 @@ import {Subscription} from "rxjs";
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit, AfterViewInit {
+export class ProductListComponent implements OnInit {
     pageTitle: string = 'Product List';
     showImage: boolean;
 
@@ -20,29 +20,6 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     filteredProducts: IProduct[];
     products: IProduct[];
 
-    listFilter: string;
-
-    @ViewChild('filterElement') filterElementRef: ElementRef;
-    @ViewChild(NgModel) inputElement: NgModel;
-
-    private _sub: Subscription;
-
-    private _filterInput: NgModel;
-
-    get filterInput(): NgModel {
-        return this._filterInput;
-    }
-
-    @ViewChild(NgModel)
-    set filterInput(value: NgModel) {
-        this._filterInput = value;
-
-        if (this.inputElement && !this._sub) {
-            this._sub = this.inputElement.valueChanges.subscribe(
-                () => this.performFilter(this.listFilter)
-            );
-        }
-    }
 
     constructor(private productService: ProductService) {
     }
@@ -51,17 +28,13 @@ export class ProductListComponent implements OnInit, AfterViewInit {
         this.productService.getProducts().subscribe(
             (products: IProduct[]) => {
                 this.products = products;
-                this.performFilter(this.listFilter);
+                this.performFilter();
             },
             (error: any) => this.errorMessage = <any>error
         );
     }
 
-    ngAfterViewInit(): void {
-        // this.inputElement.valueChanges.subscribe(
-        //     () => this.performFilter(this.listFilter)
-        // );
-    }
+
 
     toggleImage(): void {
         this.showImage = !this.showImage;
