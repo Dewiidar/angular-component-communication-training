@@ -5,7 +5,7 @@
 
     <div class='panel-body'>
         <div class="row">
-            <pm-criteria class="col-md-10" #filterCriteria [displayDetail]="includeDetail">
+            <pm-criteria class="col-md-10" #filterCriteria [displayDetail]="includeDetail" (valueChange)="onValueChange($event)">
             </pm-criteria>
         </div>
 
