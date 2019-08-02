@@ -9,12 +9,13 @@ import { IProduct } from '../product';
 export class ProductShellDetailComponent implements OnInit {
     pageTitle: string = 'Product Detail';
 
+    product: IProduct | null;
+
     constructor(private productService: ProductService) { }
 
     ngOnInit() {
-    }
-
-    get product(): IProduct | null {
-        return this.productService.currentProduct;
+        this.productService.selectedProductChanges$.subscribe(
+            selectedProduct => this.product = selectedProduct
+        )
     }
 }
