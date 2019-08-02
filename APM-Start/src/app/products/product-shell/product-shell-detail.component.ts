@@ -14,4 +14,7 @@ export class ProductShellDetailComponent implements OnInit {
     ngOnInit() {
     }
 
+    get product(): IProduct | null {
+        return this.productService.currentProduct;
+    }
 }
